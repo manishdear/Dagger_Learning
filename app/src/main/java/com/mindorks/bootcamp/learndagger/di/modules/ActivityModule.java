@@ -19,7 +19,6 @@ public class ActivityModule {
         this.activity = activity;
     }
 
-    @ActivityScope
     @Provides
     MainViewModel provideMainViewModel(){
         return new  MainViewModel(
