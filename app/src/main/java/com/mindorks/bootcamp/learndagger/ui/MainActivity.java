@@ -3,6 +3,7 @@ package com.mindorks.bootcamp.learndagger.ui;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.mindorks.bootcamp.learndagger.MyApplication;
 import com.mindorks.bootcamp.learndagger.R;
 import com.mindorks.bootcamp.learndagger.di.components.DaggerActivityComponent;
 import com.mindorks.bootcamp.learndagger.di.modules.ActivityModule;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         DaggerActivityComponent
                 .builder()
                 .activityModule(new ActivityModule(this))
+                .applicationComponent(((MyApplication)getApplication()).component)
                 .build()
                 .inject(this);
 

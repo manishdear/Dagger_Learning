@@ -15,7 +15,7 @@ public interface ApplicationComponent {
 
     void inject(MyApplication application);
 
-//    NetworkService getNetworkService();
+    NetworkService getNetworkService();
 
-//    DatabaseService getDatabaseService();
+    DatabaseService getDatabaseService();
 }
