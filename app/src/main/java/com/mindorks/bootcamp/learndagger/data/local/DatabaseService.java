@@ -5,10 +5,13 @@ import android.content.Context;
 import com.mindorks.bootcamp.learndagger.di.qualifier.DatabaseInfo;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Dummy class to simulate the actual Database using Room or Realm etc
  */
+
+@Singleton
 public class DatabaseService {
 
     private Context context;

@@ -5,10 +5,13 @@ import android.content.Context;
 import com.mindorks.bootcamp.learndagger.di.qualifier.NetworkInfo;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Dummy class to simulate the actual NetworkService using Retrofit or OkHttp etc
  */
+
+@Singleton
 public class NetworkService {
 
     private Context context;
