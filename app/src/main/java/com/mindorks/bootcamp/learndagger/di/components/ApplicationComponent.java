@@ -18,4 +18,6 @@ public interface ApplicationComponent {
     NetworkService getNetworkService();
 
     DatabaseService getDatabaseService();
+
+
 }

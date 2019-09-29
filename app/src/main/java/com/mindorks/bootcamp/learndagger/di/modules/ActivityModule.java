@@ -19,10 +19,4 @@ public class ActivityModule {
         this.activity = activity;
     }
 
-    @ActivityScope
-    @Provides
-    MainViewModel provideMainViewModel(NetworkService networkService, DatabaseService databaseService){
-        return new  MainViewModel(
-                databaseService, networkService);
-    }
 }
