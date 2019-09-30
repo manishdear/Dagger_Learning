@@ -1,36 +1,36 @@
 package com.mindorks.bootcamp.learndagger;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.mindorks.bootcamp.learndagger.data.local.DatabaseService;
 import com.mindorks.bootcamp.learndagger.data.remote.NetworkService;
-import com.mindorks.bootcamp.learndagger.di.components.ApplicationComponent;
-import com.mindorks.bootcamp.learndagger.di.components.DaggerApplicationComponent;
-import com.mindorks.bootcamp.learndagger.di.modules.ApplicationModule;
+import com.mindorks.bootcamp.learndagger.di.component.ApplicationComponent;
+import com.mindorks.bootcamp.learndagger.di.component.DaggerApplicationComponent;
+import com.mindorks.bootcamp.learndagger.di.module.ApplicationModule;
 
 import javax.inject.Inject;
 
 public class MyApplication extends Application {
 
-    @Inject
-    public NetworkService networkService;
+    public ApplicationComponent applicationComponent;
 
     @Inject
-    public DatabaseService databaseService;
+    NetworkService networkService;
 
-    public ApplicationComponent component;
+    @Inject
+    DatabaseService databaseService;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        component =  DaggerApplicationComponent
+        getDependencies();
+    }
+
+    public void getDependencies() {
+        applicationComponent = DaggerApplicationComponent
                 .builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
-
-        component.inject(this);
-
-        Log.d("DEBUG" , networkService.toString());
+        applicationComponent.inject(this);
     }
 }

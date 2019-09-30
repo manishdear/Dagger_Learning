@@ -1,16 +1,12 @@
-package com.mindorks.bootcamp.learndagger.di.modules;
+package com.mindorks.bootcamp.learndagger.di.module;
 
 
 import android.content.Context;
 
 import com.mindorks.bootcamp.learndagger.MyApplication;
-import com.mindorks.bootcamp.learndagger.data.local.DatabaseService;
-import com.mindorks.bootcamp.learndagger.data.remote.NetworkService;
 import com.mindorks.bootcamp.learndagger.di.qualifier.ApplicationContext;
 import com.mindorks.bootcamp.learndagger.di.qualifier.DatabaseInfo;
 import com.mindorks.bootcamp.learndagger.di.qualifier.NetworkInfo;
-
-import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
