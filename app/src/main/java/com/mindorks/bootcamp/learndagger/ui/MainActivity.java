@@ -19,17 +19,22 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        dependencies();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        TextView tvData = findViewById(R.id.tvData);
+        tvData.setText(viewModel.getSomeData());
+
+    }
+
+
+    private void dependencies(){
         DaggerActivityComponent
                 .builder()
                 .activityModule(new ActivityModule(this))
                 .applicationComponent(((MyApplication)getApplication()).component)
                 .build()
                 .inject(this);
-
-        TextView tvData = findViewById(R.id.tvData);
-        tvData.setText(viewModel.getSomeData());
     }
 }
