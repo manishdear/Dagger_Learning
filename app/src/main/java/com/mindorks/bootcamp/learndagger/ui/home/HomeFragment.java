@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.mindorks.bootcamp.learndagger.MyApplication;
 import com.mindorks.bootcamp.learndagger.R;
 import com.mindorks.bootcamp.learndagger.di.component.DaggerFragmentComponent;
 import com.mindorks.bootcamp.learndagger.di.module.FragmentModule;

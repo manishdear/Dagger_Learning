@@ -3,7 +3,6 @@ package com.mindorks.bootcamp.learndagger.di.module;
 
 import android.content.Context;
 
-import com.mindorks.bootcamp.learndagger.MyApplication;
 import com.mindorks.bootcamp.learndagger.di.qualifier.ApplicationContext;
 import com.mindorks.bootcamp.learndagger.di.qualifier.DatabaseInfo;
 import com.mindorks.bootcamp.learndagger.di.qualifier.NetworkInfo;
