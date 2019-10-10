@@ -1,7 +1,7 @@
 package com.mindorks.bootcamp.learndagger.data.remote
 
 import android.content.Context
-import com.mindorks.bootcamp.learndagger.di.qualifier.NetworkInfo
+import com.mindorks.bootcamp.learndagger.di.NetworkInfo
 import javax.inject.Inject
 import javax.inject.Singleton
 

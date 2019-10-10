@@ -6,6 +6,6 @@ import com.mindorks.bootcamp.learndagger.data.remote.NetworkService
 class MainViewModel(private val databaseService: DatabaseService, private val networkService: NetworkService) {
 
     fun getSomeData() : String{
-        return " ${databaseService.dummyData} :  ${networkService.dummyData}"
+        return " ${databaseService.getDummyData()} :  ${networkService.getDummyData()}"
     }
 }

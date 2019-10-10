@@ -43,7 +43,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val tvMessage = view.findViewById<TextView>(R.id.tv_message)
-        tvMessage.text = viewModel.someData
+        tvMessage.text = viewModel.getSomeData()
     }
 
     fun getDependencies(){
