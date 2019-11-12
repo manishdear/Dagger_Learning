@@ -14,8 +14,11 @@ data class UserAddress(
         val city: String,
 
         @ColumnInfo(name = "country")
-        val country: String
+        val country: String,
+
+        @ColumnInfo(name = "code")
+        val code: Int
 ) {
 
-    constructor(): this(0, "", "")
+    constructor(): this(0, "", "",0)
 }

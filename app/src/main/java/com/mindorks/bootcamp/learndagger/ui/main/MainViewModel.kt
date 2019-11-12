@@ -11,6 +11,7 @@ import com.mindorks.bootcamp.learndagger.di.ActivityScope
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 import javax.inject.Inject
 
@@ -42,28 +43,28 @@ class MainViewModel @Inject constructor(
                         if (it == 0)
                             databaseService.addressDao()
                                     .insertMany(
-                                            UserAddress(city = "Delhi", country =  "India"),
-                                            UserAddress(city = "New Youk", country = "US"),
-                                            UserAddress(city = "Berlin", country = "Germany"),
-                                            UserAddress(city = "London", country = "Uk"),
-                                            UserAddress(city = "Banglore", country = "India"),
-                                            UserAddress(city = "Barcelona",country =  "Spain")
+                                            UserAddress(city = "Delhi", country =  "India", code = 1),
+                                            UserAddress(city = "New Youk", country = "US", code = 1),
+                                            UserAddress(city = "Berlin", country = "Germany", code = 1),
+                                            UserAddress(city = "London", country = "Uk", code = 1),
+                                            UserAddress(city = "Banglore", country = "India", code = 1),
+                                            UserAddress(city = "Barcelona",country =  "Spain", code = 1)
                                     )
                                     .flatMap {addressIds ->
                                         databaseService.userDao()
                                                 .insertMany(
                                                         User(name = "Test 1",
-                                                                addressId = addressIds[0]),
+                                                                addressId = addressIds[0], dateOfBirth = Date(9111775017)),
                                                         User(name = "Test 2",
-                                                                addressId = addressIds[1]),
+                                                                addressId = addressIds[1], dateOfBirth = Date(9111775017)),
                                                         User(name = "Test 3",
-                                                                addressId = addressIds[2]),
+                                                                addressId = addressIds[2], dateOfBirth = Date(9111775017)),
                                                         User(name = "Test 4",
-                                                                addressId = addressIds[3]),
+                                                                addressId = addressIds[3], dateOfBirth = Date(9111775017)),
                                                         User(name = "Test 5",
-                                                                addressId = addressIds[4]),
+                                                                addressId = addressIds[4], dateOfBirth = Date(9111775017)),
                                                         User(name = "Test 6",
-                                                                addressId = addressIds[5])
+                                                                addressId = addressIds[5], dateOfBirth = Date(9111775017))
                                                 )
                                     }
                         else Single.just(0)
