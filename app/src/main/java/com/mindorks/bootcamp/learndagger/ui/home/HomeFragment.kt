@@ -8,28 +8,26 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.mindorks.bootcamp.learndagger.MyApplication
 import com.mindorks.bootcamp.learndagger.R
-import com.mindorks.bootcamp.learndagger.di.component.DaggerActivityComponent
 import com.mindorks.bootcamp.learndagger.di.component.DaggerFragmentComponent
 import com.mindorks.bootcamp.learndagger.di.module.FragmentModule
 import javax.inject.Inject
 
 class HomeFragment : Fragment() {
 
-    @Inject
-    lateinit var viewModel: HomeViewModel
+    companion object {
 
+        val TAG = "HomeFragment"
 
-    companion object{
-        val TAG: String = "HomeFragment"
-
-        fun newInstance(): HomeFragment{
+        fun newInstance(): HomeFragment {
             val args = Bundle()
             val fragment = HomeFragment()
             fragment.arguments = args
-            return  fragment
-
+            return fragment
         }
     }
+
+    @Inject
+    lateinit var viewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         getDependencies()
@@ -43,16 +41,18 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val tvMessage = view.findViewById<TextView>(R.id.tv_message)
-        tvMessage.text = viewModel.getSomeData()
+        tvMessage.text = viewModel.someData
     }
 
-    fun getDependencies(){
-
+    private// to suppress null pointer exception warning
+    fun getDependencies() {
         DaggerFragmentComponent
                 .builder()
-                .applicationComponent((context!!.applicationContext as MyApplication).applicationComponent)
-                .fragmentModule(FragmentModule(this))
+                .applicationComponent((context!!
+                        .applicationContext as MyApplication).applicationComponent)
+                .fragmentModule(FragmentModule(this)) // this is shown as deprecated as no instance provided by it is being injected
                 .build()
                 .inject(this)
     }
+
 }

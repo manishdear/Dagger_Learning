@@ -5,10 +5,14 @@ import com.mindorks.bootcamp.learndagger.data.remote.NetworkService
 import com.mindorks.bootcamp.learndagger.di.FragmentScope
 import com.mindorks.bootcamp.learndagger.utils.NetworkHelper
 
+import javax.inject.Inject
+
 @FragmentScope
-class HomeViewModel(var databaseService: DatabaseService, var networkService: NetworkService, var networkHelper: NetworkHelper) {
+class HomeViewModel @Inject constructor(
+        private val databaseService: DatabaseService,
+        private val networkService: NetworkService,
+        private val networkHelper: NetworkHelper) {
 
-    fun getSomeData() : String = " ${databaseService.getDummyData()}  : ${networkService.getDummyData()} : ${networkHelper}"
-
-
+    val someData: String
+        get() = "HomeViewMode"
 }

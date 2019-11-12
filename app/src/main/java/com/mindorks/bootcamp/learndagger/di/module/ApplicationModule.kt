@@ -1,32 +1,46 @@
 package com.mindorks.bootcamp.learndagger.di.module
 
 import android.content.Context
+import androidx.room.Room
+
 import com.mindorks.bootcamp.learndagger.MyApplication
+import com.mindorks.bootcamp.learndagger.data.local.DatabaseService
 import com.mindorks.bootcamp.learndagger.di.ApplicationContext
 import com.mindorks.bootcamp.learndagger.di.DatabaseInfo
 import com.mindorks.bootcamp.learndagger.di.NetworkInfo
+
 import dagger.Module
 import dagger.Provides
+import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Singleton
 
 @Module
-class ApplicationModule (var application: MyApplication) {
+class ApplicationModule(private val application: MyApplication) {
 
     @ApplicationContext
     @Provides
     fun provideContext(): Context = application
 
-    @DatabaseInfo
     @Provides
-    fun provideDatabaseName(): String = "abc"
-
-
     @DatabaseInfo
+    fun provideDatabaseName(): String = "dummy_db"
+
     @Provides
+    @DatabaseInfo
     fun provideDatabaseVersion(): Int = 1
 
-    @NetworkInfo
     @Provides
-    fun provideApiKey():String ="SOME_API_KEY"
+    @NetworkInfo
+    fun provideApiKey(): String = "SOME_API_KEY"
 
+    @Provides
+    fun provideDatabaseService(): DatabaseService = Room.databaseBuilder(
+            application,
+            DatabaseService::class.java,
+            "bootcamp-database-project-db"
+    ).build()
+
+    @Provides
+    fun provideCompositeDisposable(): CompositeDisposable = CompositeDisposable()
 
 }

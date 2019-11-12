@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">LearnDagger</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hello_msg_from_activity">Hello From Activity!</string>
     <string name="hello_msg_from_fragment">Hello From Fragment!</string>
 </resources>
