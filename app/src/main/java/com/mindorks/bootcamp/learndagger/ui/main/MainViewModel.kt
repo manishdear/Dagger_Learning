@@ -1,17 +1,15 @@
 package com.mindorks.bootcamp.learndagger.ui.main
 
-import android.nfc.Tag
+import android.location.Address
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.mindorks.bootcamp.learndagger.data.local.DatabaseService
-import com.mindorks.bootcamp.learndagger.data.local.entity.Address
 import com.mindorks.bootcamp.learndagger.data.local.entity.User
+import com.mindorks.bootcamp.learndagger.data.local.entity.UserAddress
 import com.mindorks.bootcamp.learndagger.data.remote.NetworkService
 import com.mindorks.bootcamp.learndagger.di.ActivityScope
-import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.internal.disposables.ArrayCompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 import javax.inject.Inject
@@ -30,7 +28,11 @@ class MainViewModel @Inject constructor(
 
     val users = MutableLiveData<List<User>>()
 
+    val addresses = MutableLiveData<List<UserAddress>>()
+
     var allUser :List<User> = emptyList()
+
+    var allAddress :List<UserAddress> = emptyList()
 
     init {
         compositeDisposable.add(
@@ -38,23 +40,33 @@ class MainViewModel @Inject constructor(
                     .count()
                     .flatMap {
                         if (it == 0)
-                            databaseService.userDao()
+                            databaseService.addressDao()
                                     .insertMany(
-                                            User(name = "Test 1",
-                                                    address = Address("Delhi", "India")),
-                                            User(name = "Test 2",
-                                                    address = Address("New Youk", "US")),
-                                            User(name = "Test 3",
-                                                    address = Address("Berlin", "Germany")),
-                                            User(name = "Test 4",
-                                                    address = Address("London", "Uk")),
-                                            User(name = "Test 5",
-                                                    address = Address("Banglore", "India")),
-                                            User(name = "Test 6",
-                                                    address = Address("Barcelona", "Spain"))
+                                            UserAddress(city = "Delhi", country =  "India"),
+                                            UserAddress(city = "New Youk", country = "US"),
+                                            UserAddress(city = "Berlin", country = "Germany"),
+                                            UserAddress(city = "London", country = "Uk"),
+                                            UserAddress(city = "Banglore", country = "India"),
+                                            UserAddress(city = "Barcelona",country =  "Spain")
                                     )
-                        else
-                            Single.just(0)
+                                    .flatMap {addressIds ->
+                                        databaseService.userDao()
+                                                .insertMany(
+                                                        User(name = "Test 1",
+                                                                addressId = addressIds[0]),
+                                                        User(name = "Test 2",
+                                                                addressId = addressIds[1]),
+                                                        User(name = "Test 3",
+                                                                addressId = addressIds[2]),
+                                                        User(name = "Test 4",
+                                                                addressId = addressIds[3]),
+                                                        User(name = "Test 5",
+                                                                addressId = addressIds[4]),
+                                                        User(name = "Test 6",
+                                                                addressId = addressIds[5])
+                                                )
+                                    }
+                        else Single.just(0)
                     }
                     .subscribeOn(Schedulers.io())
                     .subscribe(
@@ -85,6 +97,23 @@ class MainViewModel @Inject constructor(
         )
     }
 
+    fun getAllAddresses(){
+        compositeDisposable.add(
+                databaseService.addressDao()
+                        .getAllAddresses()
+                        .subscribeOn(Schedulers.io())
+                        .subscribe(
+                                {
+                                    allAddress = it
+                                    addresses.postValue(it)
+                                },
+                                {
+                                    Log.d(TAG,it.toString())
+                                }
+                        )
+        )
+    }
+
     fun deleteUser(){
         if(allUser.isNotEmpty())
             compositeDisposable.add(
@@ -99,6 +128,28 @@ class MainViewModel @Inject constructor(
                                     {
                                         allUser = it
                                         users.postValue(it)
+                                    },
+                                    {
+                                        Log.d(TAG,it.toString())
+                                    }
+                            )
+            )
+    }
+
+    fun deleteAddress(){
+        if(allUser.isNotEmpty())
+            compositeDisposable.add(
+                    databaseService.addressDao()
+                            .delete(allAddress[0])
+                            .flatMap {
+                                databaseService.addressDao()
+                                        .getAllAddresses()
+                            }
+                            .subscribeOn(Schedulers.io())
+                            .subscribe(
+                                    {
+                                        allAddress = it
+                                        addresses.postValue(it)
                                     },
                                     {
                                         Log.d(TAG,it.toString())

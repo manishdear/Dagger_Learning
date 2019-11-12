@@ -2,7 +2,14 @@ package com.mindorks.bootcamp.learndagger.data.local.entity
 
 import androidx.room.*
 
-@Entity(tableName = "users")
+@Entity(tableName = "users",
+        foreignKeys = [
+        ForeignKey(entity = UserAddress::class,
+                parentColumns = ["id"],
+                childColumns = ["address_id"],
+                onDelete = ForeignKey.CASCADE)
+        ]
+)
 data class User(
         @PrimaryKey(autoGenerate = true)
         var id: Long = 0,
@@ -10,11 +17,11 @@ data class User(
         @ColumnInfo(name = "name")
         var name: String,
 
-        @Embedded
-        var address: Address,
+        @ColumnInfo(name= "address_id")
+        var addressId: Long,
 
         @Ignore
         var selected : Boolean = false
 ){
-        constructor(): this(0, "", Address("", ""))
+        constructor(): this(0, "", 0,false)
 }
